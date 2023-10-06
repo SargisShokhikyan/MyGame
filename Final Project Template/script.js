@@ -23,38 +23,56 @@
 
 function matrixGenerator(l) {
     // Local matrix
-    var m = [];
+    let m = [];
     // Fill matrix
     for (var i = 0; i < l; i++) {
         m[i] = [];
         for (var j = 0; j < l; j++) {
             // Stexcel random tiv
-            var rand = random(0, 100);
-            // Lcnel matrix tokosayin haraberutyamb
-            if (rand <= 30) {
-                // Xot
-                m[i][j] = 1;    
-            } else if (rand > 30 && rand <= 50) {
-                // Xotaker
-                m[i][j] = 2;     
-            } else if (rand > 50 && rand <= 60) {
-                // Gishatich
-                m[i][j] = 3;     
-            } else if (rand > 60 && rand <= 70) {
-                // Nor kerpar 1
-                m[i][j] = 4;     
-            } else if (rand > 70 && rand <= 80) {
-                // Nor kerpar 2
-                m[i][j] = 5;     
-            } else {
-                // Datarkutyun
-                m[i][j] = 0;     
-            }
+            // var rand = random(0, 100);
+            // // Lcnel matrix tokosayin haraberutyamb
+            // if (rand <= 30) {
+            //     // Xot
+            //     m[i][j] = 1;
+            // } else if (rand > 30 && rand <= 50) {
+            //     // Xotaker
+            //     m[i][j] = 2;
+            // } else if (rand > 50 && rand <= 60) {
+            //     // Gishatich
+            //     m[i][j] = 3;
+            // } else if (rand > 60 && rand <= 70) {
+            //     // Nor kerpar 1
+            //     m[i][j] = 4;
+            // } else if (rand > 70 && rand <= 80) {
+            //     // Nor kerpar 2
+            //     m[i][j] = 5;
+            // } else {
+            //     // Datarkutyun
+            //     m[i][j] = 0;
+            // }
+            m[i].push(0)
         }
     }
     // Veradarcnel matrix
     return m;
 }
+
+const a = 16;
+
+
+function fillC(count ,character){
+    let p = 0;
+    while (p < count) {
+        let k = Math.floor(Math.random()* a)
+        let l = Math.floor(Math.random()* a)
+        if(matrix[k][l] == 0){
+            matrix[k][l] = character;
+        }
+        p++;
+    }
+}
+matrix = matrixGenerator(a)
+fillC(15,1);
 
 // Haytararel global matrix popoxakan
 var matrix;
@@ -68,7 +86,6 @@ var dieArr = [];
 var side = 30;
 
 function setup() {
-    matrix = matrixGenerator(20);
     frameRate(5);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
@@ -78,22 +95,22 @@ function setup() {
                 var gr = new Grass(x, y, 1);
                 grassArr.push(gr);
             }
-            else if (matrix[y][x] == 2) {
-                var ge = new GrassEater(x, y, 2);
-                grassEaterArr.push(ge);
-            }
-            else if (matrix[y][x] == 3) {
-                var pr = new Predator(x, y, 3);
-                predatorArr.push(pr);
-            }
-            else if (matrix[y][x] == 4) {
-                var hn = new Hunter(x, y, 4);
-                hunterArr.push(hn);
-            }
-            else if (matrix[y][x] == 5) {
-                var die = new Hunter(x, y, 5);
-                dieArr.push(die);
-            }
+            // else if (matrix[y][x] == 2) {
+            //     var ge = new GrassEater(x, y, 2);
+            //     grassEaterArr.push(ge);
+            // }
+            // else if (matrix[y][x] == 3) {
+            //     var pr = new Predator(x, y, 3);
+            //     predatorArr.push(pr);
+            // }
+            // else if (matrix[y][x] == 4) {
+            //     var hn = new Hunter(x, y, 4);
+            //     hunterArr.push(hn);
+            // }
+            // else if (matrix[y][x] == 5) {
+            //     var die = new Hunter(x, y, 5);
+            //     dieArr.push(die);
+            // }
         }
     }
 }
@@ -126,18 +143,18 @@ function draw() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
-    for (var i in grassEaterArr) {
-        grassEaterArr[i].eat();
-    }
-    for (var i in predatorArr) {
-        predatorArr[i].eat();
-    }
-    for (var i in hunterArr) {
-        hunterArr[i].eat();
-    }
-    for (var i in dieArr) {
-        dieArr[i].mul();
-    }
+    // for (var i in grassEaterArr) {
+    //     grassEaterArr[i].eat();
+    // }
+    // for (var i in predatorArr) {
+    //     predatorArr[i].eat();
+    // }
+    // for (var i in hunterArr) {
+    //     hunterArr[i].eat();
+    // }
+    // for (var i in dieArr) {
+    //     dieArr[i].mul();
+    // }
 
 }
 
