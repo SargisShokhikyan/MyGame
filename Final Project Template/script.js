@@ -1,3 +1,9 @@
+var LivingCreature = require("./livingCreator.js");
+var Grass = require("./grass.js");
+var grassEater = require("./grassEater.js");
+var Predator = require("./Predator.js");
+var Hunter = require("./hunter.js");
+var Die = require("./Die.js");
 /*var matrix = [
     [3, 0, 1, 0, 0, 0, 1, 0, 2, 5, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [1, 0, 2, 0, 3, 0, 0, 0, 0, 0, 1, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -72,9 +78,12 @@ function fillC(count ,character){
     }
 }
 matrix = matrixGenerator(a)
-fillC(15,1);
+fillC(10,5);
+fillC(6,4);
+fillC(7,3);
+fillC(7,2);
+fillC(120,1);
 
-// Haytararel global matrix popoxakan
 var matrix;
 
 var grassArr = [];
@@ -86,7 +95,7 @@ var dieArr = [];
 var side = 30;
 
 function setup() {
-    frameRate(5);
+    frameRate(8);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
     for (var y = 0; y < matrix.length; ++y) {
@@ -95,22 +104,22 @@ function setup() {
                 var gr = new Grass(x, y, 1);
                 grassArr.push(gr);
             }
-            // else if (matrix[y][x] == 2) {
-            //     var ge = new GrassEater(x, y, 2);
-            //     grassEaterArr.push(ge);
-            // }
-            // else if (matrix[y][x] == 3) {
-            //     var pr = new Predator(x, y, 3);
-            //     predatorArr.push(pr);
-            // }
-            // else if (matrix[y][x] == 4) {
-            //     var hn = new Hunter(x, y, 4);
-            //     hunterArr.push(hn);
-            // }
-            // else if (matrix[y][x] == 5) {
-            //     var die = new Hunter(x, y, 5);
-            //     dieArr.push(die);
-            // }
+            else if (matrix[y][x] == 2) {
+                var ge = new grassEater(x, y, 2);
+                grassEaterArr.push(ge);
+            }
+            else if (matrix[y][x] == 3) {
+                var pr = new Predator(x, y, 3);
+                predatorArr.push(pr);
+            }
+            else if (matrix[y][x] == 4) {
+                var hn = new Hunter(x, y, 4);
+                hunterArr.push(hn);
+            }
+            else if (matrix[y][x] == 5) {
+                var die = new Die(x, y, 5);
+                dieArr.push(die);
+            }
         }
     }
 }
@@ -143,18 +152,18 @@ function draw() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
-    // for (var i in grassEaterArr) {
-    //     grassEaterArr[i].eat();
-    // }
-    // for (var i in predatorArr) {
-    //     predatorArr[i].eat();
-    // }
-    // for (var i in hunterArr) {
-    //     hunterArr[i].eat();
-    // }
-    // for (var i in dieArr) {
-    //     dieArr[i].mul();
-    // }
+    for (var i in grassEaterArr) {
+        grassEaterArr[i].eat();
+    }
+    for (var i in predatorArr) {
+        predatorArr[i].eat();
+    }
+    for (var i in hunterArr) {
+        hunterArr[i].eat();
+    }
+    for (var i in dieArr) {
+        dieArr[i].mul();
+    }
 
 }
 

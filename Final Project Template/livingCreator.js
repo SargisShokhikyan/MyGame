@@ -1,7 +1,6 @@
-class LivingCreature {
+module.exports = class LivingCreature {
 
     constructor(x, y, index) {
-
         this.x = x;
         this.y = y;
         this.multiply = 0;
