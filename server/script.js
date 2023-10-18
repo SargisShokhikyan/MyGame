@@ -1,10 +1,11 @@
-var LivingCreature = require("./livingCreator.js");
+/*var LivingCreature = require("./livingCreator.js");
 var Grass = require("./grass.js");
 var grassEater = require("./grassEater.js");
 var Predator = require("./Predator.js");
 var Hunter = require("./hunter.js");
 var Die = require("./Die.js");
-/*var matrix = [
+
+var matrix = [
     [3, 0, 1, 0, 0, 0, 1, 0, 2, 5, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [1, 0, 2, 0, 3, 0, 0, 0, 0, 0, 1, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

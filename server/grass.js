@@ -1,5 +1,3 @@
-var LivingCreature = require("./livingCreator.js");
-
 module.exports = class Grass extends LivingCreature {
     mul() {
         this.multiply++;
