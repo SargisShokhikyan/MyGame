@@ -14,19 +14,20 @@ server.listen(3000, function () { // add
     console.log("Example is running on port 3000");
 });
 
+var fs = require('fs');
+var file = "statisticsGame.json";
+//fs.appendFileSync(file, "Hello world\n");
 
-/*var LivingCreature = require("./livingCreature.js");
-var Grass = require("./grass.js");
-var grassEater = require("./grassEater.js");
-var Predator = require("./predator.js");
-var Hunter = require("./hunter.js");
-var Die = require("./Die.js");*/
-
-
+Grass = require("./grass.js");
+grassEater = require("./grassEater.js");
+Predator = require("./predator.js");
+Hunter = require("./hunter.js");
+Die = require("./Die.js");
+random = require("./random");
 
 function matrixGenerator(l) {
     // Local matrix
-    let m = [];
+    m = [];
     // Fill matrix
     for (var i = 0; i < l; i++) {
         m[i] = [];
@@ -60,22 +61,28 @@ function matrixGenerator(l) {
 }
 
 const a = 16;
-var matrix;
 
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var hunterArr = [];
-var dieArr = [];
 
-var side = 30;
+grassArr = [];
+grassEaterArr = [];
+predatorArr = [];
+hunterArr = [];
+dieArr = [];
+
+side = 30;
 
 
 function fillC(count ,character){
     let p = 0;
+  
+  
+       // fs.writeFileSync(file, JSON.stringify({ count:count, character:"Die"}));
+ 
     while (p < count) {
-        let k = Math.floor(Math.random()* a)
-        let l = Math.floor(Math.random()* a)
+        //let k = Math.floor(Math.random()* a)
+        //let l = Math.floor(Math.random()* a)
+        let k = Math.floor(random(a))
+        let l = Math.floor(random(a))
         if(matrix[k][l] == 0){
             matrix[k][l] = character;
         }
@@ -84,11 +91,11 @@ function fillC(count ,character){
 }
 
 matrix = matrixGenerator(a);
-fillC(10,5);
-fillC(6,4);
-fillC(7,3);
-fillC(7,2);
-fillC(120,1);
+fillC(Math.floor(Math.random()* a),5);
+fillC(Math.floor(Math.random()* a),4);
+fillC(Math.floor(Math.random()* a),3);
+fillC(Math.floor(Math.random()* a),2);
+fillC(Math.floor(Math.random()* a),1);
 
 
 function createObj(){
@@ -117,7 +124,7 @@ function createObj(){
         }
     }
 }
-//createObj()
+
 
 function start(){
     for (var i in grassArr) {
@@ -135,7 +142,19 @@ function start(){
     for (var i in dieArr) {
         dieArr[i].mul();
     }
+
+    io.sockets.emit("myMatrix", matrix);
+    fs.writeFileSync(file, JSON.stringify(
+        { 
+            grassCount : grassArr.length, 
+            grassEaterCount : grassEaterArr.length
+        }
+        ));
+
 }
+
+createObj();
+setInterval(start, 700);
 
 io.on('connection', function (socket) {
     socket.emit("myMatrix", matrix);

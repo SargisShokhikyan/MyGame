@@ -1,3 +1,5 @@
+LivingCreature  = require('./livingCreature.js')
+
 module.exports = class Die extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
