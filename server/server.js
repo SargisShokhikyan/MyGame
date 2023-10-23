@@ -3,14 +3,14 @@ var app = express();
 
 app.use(express.static("../client"));
 
-var server = require('http').createServer(app); // add
-var io = require('socket.io')(server); // add
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 app.get("/", function (req, res) {
     res.redirect("index.html");
 });
 
-server.listen(3000, function () { // add
+server.listen(3000, function () {
     console.log("Example is running on port 3000");
 });
 
@@ -74,10 +74,6 @@ side = 30;
 
 function fillC(count ,character){
     let p = 0;
-  
-  
-       // fs.writeFileSync(file, JSON.stringify({ count:count, character:"Die"}));
- 
     while (p < count) {
         //let k = Math.floor(Math.random()* a)
         //let l = Math.floor(Math.random()* a)
@@ -147,14 +143,17 @@ function start(){
     fs.writeFileSync(file, JSON.stringify(
         { 
             grassCount : grassArr.length, 
-            grassEaterCount : grassEaterArr.length
+            grassEaterCount : grassEaterArr.length,
+            PredatorCount: predatorArr.length,
+            HunterCount: hunterArr.length,
+            DieObjCount: dieArr.length
         }
         ));
 
 }
 
 createObj();
-setInterval(start, 700);
+setInterval(start, 500);
 
 io.on('connection', function (socket) {
     socket.emit("myMatrix", matrix);
@@ -163,4 +162,8 @@ io.on('connection', function (socket) {
     // messages.push(data);
     // io.sockets.emit("display message", data); // noric uxarkely// serveric client
     // });
+    socket.on("Weather", function (data) {
+        console.log(data); 
+    });
+
 });
