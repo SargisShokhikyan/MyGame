@@ -87,11 +87,12 @@ function fillC(count ,character){
 }
 
 matrix = matrixGenerator(a);
-fillC(Math.floor(Math.random()* a),5);
-fillC(Math.floor(Math.random()* a),4);
-fillC(Math.floor(Math.random()* a),3);
-fillC(Math.floor(Math.random()* a),2);
-fillC(Math.floor(Math.random()* a),1);
+fillC(1,1);
+//fillC(Math.floor(Math.random()* a),5);
+//fillC(Math.floor(Math.random()* a),4);
+//fillC(Math.floor(Math.random()* a),3);
+//fillC(Math.floor(Math.random()* a),2);
+//fillC(Math.floor(Math.random()* a),1);
 
 
 function createObj(){
@@ -140,20 +141,34 @@ function start(){
     }
 
     io.sockets.emit("myMatrix", matrix);
-    fs.writeFileSync(file, JSON.stringify(
+    gameStatistics = {
+        grassCount : grassArr.length, 
+        grassEaterCount : grassEaterArr.length,
+        PredatorCount: predatorArr.length,
+        HunterCount: hunterArr.length,
+        DieObjCount: dieArr.length
+    };
+    
+    /*fs.writeFileSync(file, JSON.stringify(
         { 
-            grassCount : grassArr.length, 
-            grassEaterCount : grassEaterArr.length,
-            PredatorCount: predatorArr.length,
-            HunterCount: hunterArr.length,
-            DieObjCount: dieArr.length
+            
         }
-        ));
-
+    ));*/
+    fs.writeFileSync(file,JSON.stringify(gameStatistics));
+    //io.sockets.emit("statistics", gameStatistics);
 }
 
 createObj();
-setInterval(start, 500);
+setInterval(start, 100);
+setInterval(sendInfo, 2000);
+
+function sendInfo(){
+    text = fs.readFileSync("statisticsGame.json").toString();
+    //console.log(text);
+    io.sockets.emit("statistics", text);
+}
+
+exanak = " ";
 
 io.on('connection', function (socket) {
     socket.emit("myMatrix", matrix);
@@ -162,8 +177,14 @@ io.on('connection', function (socket) {
     // messages.push(data);
     // io.sockets.emit("display message", data); // noric uxarkely// serveric client
     // });
-    socket.on("Weather", function (data) {
-        console.log(data); 
+    socket.on("Weather", function (SendExanak) {
+        //console.log(exanak);
+        exanak = SendExanak;
+        if(exanak == "winter"){
+            
+        } else {
+            
+        }
     });
 
 });
