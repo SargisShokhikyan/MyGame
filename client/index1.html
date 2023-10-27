@@ -1,0 +1,284 @@
+<html>
+<title></title>
+	<meta charset="utf8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+	<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Nunito:wght@300&display=swap" rel="stylesheet">
+	<script src="client.js"></script>
+   <!-- 	 <script src="class.js"></script>
+	<script src="script.js"></script> -->
+<head>
+    <meta charset="utf8">	
+    <!--<script src="p5.js"></script>
+    <script src="class.js"></script>
+	<script src="script.js"></script>-->
+	<!--
+		<script src="livingCreator.js"></script>
+		<script src="grass.js"></script>
+		<script src="grassEater.js"></script>
+		<script src="predator.js"></script>
+		<script src="hunter.js"></script>
+		<script src="Die.js"></script>
+	-->
+    <style>
+		p{
+			font-family: 'Catamaran', sans-serif;
+			font-family: 'Nunito', sans-serif;
+		}
+		button{
+			margin-top: 30px;
+			margin-left: 50px;
+			/*background-color: #4CAF50;  Green */
+			background-color: grey;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			font-family: 'Catamaran', sans-serif;
+			font-family: 'Nunito', sans-serif;
+		}
+		button:hover{
+			background-color: #d53739;
+		}
+		.buttonHref{
+			text-decoration: none;
+			color: white;
+		}
+
+    	#white{
+    		 background-color:#dee2de;
+    	}
+    	#green{
+    		background-color:#29d829;
+    	}
+    	#red{
+    		background-color:red;
+    	}
+    	#blue{
+    		background-color:#1e69aa;
+    	}
+    	#yellow{
+    		background-color:yellow;
+    	}
+    	#dark{
+    		background-color:#252b30;
+    	}
+    	#grey{
+    		background-color:#707172;
+    	}
+        div{
+            display:inline-block;
+        }
+        table, tr, td{
+        	 border: 1px solid black;
+        	 border-collapse:collapse;
+        	 padding:5px;
+        }
+    	table{
+			margin-top:20px;
+			margin-right:20px;
+			float:right;
+		}
+    	body{
+    		font-family:optima
+    	}
+		#first{
+			background-color:#232323;
+			color:white;
+		}
+		.alice{
+			border-color:aliceblue;
+			height:40px;
+		}
+    </style>
+</head>
+
+
+<body>
+	<table>
+		<tr id="first">
+			<td class="alice"></td>
+			<td class="alice">Color</td>
+			<td class="alice">Basic Info</td>
+			<td class="alice">Energy</td>
+			<td class="alice">Multiply info</td>
+			<td class="alice">Energy Obtainment</td>
+			<td class="alice">Special Characteristic</td>
+		</tr>
+		<tr>
+			<td id="white"></td>
+			<td>
+				<p>White</p>
+			</td>
+			<td>
+				<p>Just an empty space</p>
+			</td>
+			<td>
+				<p>-</p>
+			</td>
+			<td>No multiply</td>
+			<td>
+				<p>No energy</p>
+			</td>
+			<td>
+				<p>No special characteristics</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="green"></td>
+			<td>
+				<p>Green</p>
+			</td>
+			<td>
+				<p>It's just a Grass.</p>
+			</td>
+			<td>
+				<p>-</p>
+			</td>
+			<td>
+				<p>Can multiply once in 5 frames</p>
+			</td>
+			<td>
+				<p>No energy</p>
+			</td>
+			<td>
+				<p>No special characteristics</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="blue"></td>
+			<td>
+				<p>Blue</p>
+			</td>
+			<td>
+				<p>Hunter</p>
+			</td>
+			<td>
+				<p>7</p>
+			</td>
+			<td>
+				<p>ավելանում է գիշատիչ ուտելուց հետո</p>
+			</td>
+			<td>
+				<p>Eating red</p>
+			</td>
+			<td>
+				<p>սպանում է գիշատիչներին</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="red"></td>
+			<td>
+				<p>Red</p>
+			</td>
+			<td>
+				<p>Predator</p>
+			</td>
+			<td>
+				<p>9</p>
+			</td>
+			<td>
+				<p>բազնամում է խոտակեր ուտելուց հետո</p>
+			</td>
+			<td>
+				<p>Eating yellow</p>
+			</td>
+			<td>
+				<p>ուտում է խոտակերին</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="yellow"></td>
+			<td>
+				<p>Yellow</p>
+			</td>
+			<td>
+				<p>Grass eater</p>
+			</td>
+			<td>
+				<p>16</p>
+			</td>
+			<td>
+				<p>բազնամում է խոտ ուտելուց հետո</p>
+			</td>
+			<td>
+				<p>Eating green</p>
+			</td>
+			<td>
+				<p>Appears randomly; <br>ուտում է խոտ</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="grey"></td>
+			<td>
+				<p>Grey</p>
+			</td>
+			<td>
+				<p>Damaged soil</p>
+			</td>
+			<td>
+				<p>-</p>
+			</td>
+			<td>
+				<p>No multiply</p>
+			</td>
+			<td>
+				<p>No energy</p>
+			</td>
+			<td>
+				<p></p>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="dark"></td>
+			<td>
+				<p>Dark</p>
+			</td>
+			<td>
+				<p>Die</p>
+			</td>
+			<td>
+				<p>-</p>
+			</td>
+			<td>
+				<p>դանդաղ բազմանում</p>
+			</td>
+			<td>
+				<p>No energy</p>
+			</td>
+			<td>
+				<p>երբ ուտումես անկախ կնյանքերից մահանումես</p>
+			</td>
+		</tr>
+	<br>
+	<div>
+		<button id="spring" onclick="weather('spring')" style="margin: 0;">spring</a></button>
+		<button id="summer" onclick="weather('summer')" style="margin: 0;">summer</a></button>
+		<button id="autumn" onclick="weather('autumn')" style="margin: 0;">autumn</a></button>
+		<button id="winter" onclick="weather('winter')" style="margin: 0;">winter</a></button>
+		<p id="weather" style="font-size: 28px;"></p>
+		<button id="update" onclick="updateStats()" style="margin: 0;">Update Statics</a></button>
+		<p id="statistics" style="font-size: 20px;color: gray">Statistics :</p>
+		<p id="grass" style="font-size: 20px;color: gray"></p>
+		<p id="grassE" style="font-size: 20px;color: gray"></p>
+		<p id="predator" style="font-size: 20px;color: gray"></p>
+		<p id="hunter" style="font-size: 20px;color: gray"></p>
+		<p id="die" style="font-size: 20px;color: gray"></p>
+		<button id="stop" onclick="StopGame()" style="margin: 0;">Stop game</a></button>
+		<button id="start" onclick="StartGame()" style="margin: 0;">Start game</a></button>
+	</div>
+
+</body>
+
+</html>
