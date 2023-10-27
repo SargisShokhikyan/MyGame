@@ -9,6 +9,7 @@ function setup() {
     createCanvas(a,a);
     background('#acacac');
     document.getElementById("weather").innerText = "Weather : "+nowWeather;
+    document.getElementById("start").disabled = true;
 }
 
 function weather(weather){
@@ -19,11 +20,15 @@ function weather(weather){
 
 function StopGame(){
     GameStop = true;
+    document.getElementById("stop").disabled = true;
+    document.getElementById("start").disabled = false;
     socket.emit("GameStop", GameStop);
 }
 
 function StartGame(){
     GameStop = false;
+    document.getElementById("stop").disabled = false;
+    document.getElementById("start").disabled = true;
     socket.emit("GameStop", GameStop);
 }
 

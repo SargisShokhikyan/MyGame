@@ -6,7 +6,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Nunito:wght@300&display=swap" rel="stylesheet">
-	<script src="client1.js"></script>
+	<script src="client.js"></script>
 <head>
     <meta charset="utf8">	
     <!--<script src="p5.js"></script>
@@ -25,7 +25,7 @@
 			font-family: 'Catamaran', sans-serif;
 			font-family: 'Nunito', sans-serif;
 		}
-		button{
+		.but{
 			margin-top: 30px;
 			margin-left: 50px;
 			/*background-color: #4CAF50;  Green */
@@ -40,7 +40,7 @@
 			font-family: 'Catamaran', sans-serif;
 			font-family: 'Nunito', sans-serif;
 		}
-		button:hover{
+		.but:hover{
 			background-color: #d53739;
 		}
 		.buttonHref{
@@ -49,7 +49,7 @@
 		}
 
     	#white{
-    		 background-color:#dee2de;
+    		 background-color:#707172;
     	}
     	#green{
     		background-color:#29d829;
@@ -111,7 +111,7 @@
 		<tr>
 			<td id="white"></td>
 			<td>
-				<p>White</p>
+				<p>Gray</p>
 			</td>
 			<td>
 				<p>Just an empty space</p>
@@ -216,7 +216,7 @@
 			</td>
 		</tr>
 
-		<tr>
+		<!--<tr>
 			<td id="grey"></td>
 			<td>
 				<p>Grey</p>
@@ -236,7 +236,7 @@
 			<td>
 				<p></p>
 			</td>
-		</tr>
+		</tr>-->
 
 		<tr>
 			<td id="dark"></td>
@@ -261,12 +261,12 @@
 		</tr>
 	<br>
 	<div>
-		<button id="spring" onclick="weather('spring')" style="margin: 0;">spring</a></button>
-		<button id="summer" onclick="weather('summer')" style="margin: 0;">summer</a></button>
-		<button id="autumn" onclick="weather('autumn')" style="margin: 0;">autumn</a></button>
-		<button id="winter" onclick="weather('winter')" style="margin: 0;">winter</a></button>
+		<button id="spring" class="but" onclick="weather('spring')" style="margin: 0;">spring</a></button>
+		<button id="summer" class="but" onclick="weather('summer')" style="margin: 0;">summer</a></button>
+		<button id="autumn" class="but" onclick="weather('autumn')" style="margin: 0;">autumn</a></button>
+		<button id="winter" class="but" onclick="weather('winter')" style="margin: 0;">winter</a></button>
 		<p id="weather" style="font-size: 28px;"></p>
-		<button id="update" onclick="updateStats()" style="margin: 0;">Update Statics</a></button>
+		<button id="update" class="but" onclick="updateStats()" style="margin: 0;">Update Statics</a></button>
 		<p id="statistics" style="font-size: 20px;color: gray">Statistics :</p>
 		<p id="grass" style="font-size: 20px;color: gray"></p>
 		<p id="grassE" style="font-size: 20px;color: gray"></p>

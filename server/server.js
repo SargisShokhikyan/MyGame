@@ -1,13 +1,13 @@
 var express = require("express");
 var app = express();
 
-app.use(express.static("../client1"));
+app.use(express.static("../client"));
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 app.get("/", function (req, res) {
-    res.redirect("/index2.html");
+    res.redirect("index.html");
 });
 
 server.listen(3000, function () {
@@ -87,7 +87,7 @@ function fillC(count ,character){
 }
 
 matrix = matrixGenerator(a);
-fillC(300,1);
+fillC(200,1);
 fillC(10,2);
 //fillC(Math.floor(Math.random()* a),5);
 //fillC(Math.floor(Math.random()* a),4);
@@ -159,8 +159,10 @@ function start(){
     //io.sockets.emit("statistics", gameStatistics);
 }
 
+//fps = 500;
+t = 500; //timer
 createObj();
-intervalID = setInterval(start, 200);
+intervalID = setInterval(start, t);
 setInterval(sendInfo, 2000);
 
 function sendInfo(){
@@ -171,9 +173,14 @@ function sendInfo(){
 function serverGameStop(serverGameStop){
     if(serverGameStop){;
         clearInterval(intervalID);
+        clearTimeout(intervalID);
+        //intervalID._repeat = 0;
+        //intervalID._idleTimeout = 0;
+        //intervalID._destroyed = true;
         intervalID = null;
     } else {
-        intervalID = setInterval(start, 200);
+        clearInterval(intervalID);
+        intervalID = setInterval(start, t);
     }
 }
 
@@ -182,8 +189,13 @@ function changeWeather(nowWeather){
         // while (grassEaterArr.length > 0) {
         //     grassEaterArr.die();
         // }
+        
+        intervalID._repeat = 2000;
+        //intervalID._idleTimeout = 2000;
+        
+        //intervalID = setInterval(start, t * 2000);
+        console.log(intervalID);
         for (var i in grassEaterArr) {
-            //console.log(grassEaterArr[i]);
             grassEaterArr[i].energy -= 7;
         }
         for (var i in predatorArr) {
@@ -192,17 +204,25 @@ function changeWeather(nowWeather){
         for (var i in hunterArr) {
             hunterArr[i].energy -= 10;
         } 
-    } else {
-        for (var i in grassEaterArr) {
-            grassEaterArr[i].energy += 15;
-        }
-        for (var i in predatorArr) {
-            predatorArr[i].energy += 10;
-        }
-        for (var i in hunterArr) {
-            hunterArr[i].energy += 10;
-        } 
     }
+    if(nowWeather == "spring"){
+        clearInterval(intervalID);
+        intervalID = setInterval(start, t / 5);
+        //intervalID._repeat = 1;
+        //intervalID._idleTimeout = 1;
+        console.log(intervalID);
+    }
+    // else {
+    //     for (var i in grassEaterArr) {
+    //         grassEaterArr[i].energy += 15;
+    //     }
+    //     for (var i in predatorArr) {
+    //         predatorArr[i].energy += 10;
+    //     }
+    //     for (var i in hunterArr) {
+    //         hunterArr[i].energy += 10;
+    //     } 
+    // }
 }
 
 io.on('connection', function (socket) {
