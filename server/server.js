@@ -15,11 +15,12 @@ server.listen(3000, function () {
 });
 
 var fs = require('fs');
+const grassEater = require("./grassEater.js");
 var file = "statisticsGame.json";
 //fs.appendFileSync(file, "Hello world\n");
 
 Grass = require("./grass.js");
-grassEater = require("./grassEater.js");
+GrassEater = require("./grassEater.js");
 Predator = require("./predator.js");
 Hunter = require("./hunter.js");
 Die = require("./Die.js");
@@ -62,7 +63,6 @@ function matrixGenerator(l) {
 
 const a = 16;
 
-
 grassArr = [];
 grassEaterArr = [];
 predatorArr = [];
@@ -87,7 +87,8 @@ function fillC(count ,character){
 }
 
 matrix = matrixGenerator(a);
-fillC(1,1);
+fillC(300,1);
+fillC(10,2);
 //fillC(Math.floor(Math.random()* a),5);
 //fillC(Math.floor(Math.random()* a),4);
 //fillC(Math.floor(Math.random()* a),3);
@@ -103,7 +104,7 @@ function createObj(){
                 grassArr.push(gr);
             }
             else if (matrix[y][x] == 2) {
-                var ge = new grassEater(x, y, 2);
+                var ge = new GrassEater(x, y, 2);
                 grassEaterArr.push(ge);
             }
             else if (matrix[y][x] == 3) {
@@ -159,16 +160,50 @@ function start(){
 }
 
 createObj();
-setInterval(start, 100);
+intervalID = setInterval(start, 200);
 setInterval(sendInfo, 2000);
 
 function sendInfo(){
     text = fs.readFileSync("statisticsGame.json").toString();
-    //console.log(text);
     io.sockets.emit("statistics", text);
 }
 
-exanak = " ";
+function serverGameStop(serverGameStop){
+    if(serverGameStop){;
+        clearInterval(intervalID);
+        intervalID = null;
+    } else {
+        intervalID = setInterval(start, 200);
+    }
+}
+
+function changeWeather(nowWeather){
+    if(nowWeather == "winter"){
+        // while (grassEaterArr.length > 0) {
+        //     grassEaterArr.die();
+        // }
+        for (var i in grassEaterArr) {
+            //console.log(grassEaterArr[i]);
+            grassEaterArr[i].energy -= 7;
+        }
+        for (var i in predatorArr) {
+            predatorArr[i].energy -= 10;
+        }
+        for (var i in hunterArr) {
+            hunterArr[i].energy -= 10;
+        } 
+    } else {
+        for (var i in grassEaterArr) {
+            grassEaterArr[i].energy += 15;
+        }
+        for (var i in predatorArr) {
+            predatorArr[i].energy += 10;
+        }
+        for (var i in hunterArr) {
+            hunterArr[i].energy += 10;
+        } 
+    }
+}
 
 io.on('connection', function (socket) {
     socket.emit("myMatrix", matrix);
@@ -178,13 +213,11 @@ io.on('connection', function (socket) {
     // io.sockets.emit("display message", data); // noric uxarkely// serveric client
     // });
     socket.on("Weather", function (SendExanak) {
-        //console.log(exanak);
-        exanak = SendExanak;
-        if(exanak == "winter"){
-            
-        } else {
-            
-        }
+        changeWeather(SendExanak);
+    });
+
+    socket.on("GameStop", function (GameStop) {
+        serverGameStop(GameStop);
     });
 
 });

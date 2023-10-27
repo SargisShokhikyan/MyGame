@@ -2,7 +2,7 @@ LivingCreature  = require('./livingCreature.js')
 module.exports = class grassEater extends LivingCreature {
     constructor(x, y, index){
         super(x, y, index);
-        this.energy = 16;
+        this.energy = 25;
     }
 
     getNewCoordinates() {
@@ -103,5 +103,7 @@ module.exports = class grassEater extends LivingCreature {
                 this.die();
             }
         }
+
+        
     }
 }
