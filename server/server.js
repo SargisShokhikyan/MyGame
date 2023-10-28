@@ -61,7 +61,7 @@ function matrixGenerator(l) {
     return m;
 }
 
-const a = 16;
+const a = 20;
 
 grassArr = [];
 grassEaterArr = [];
@@ -87,13 +87,13 @@ function fillC(count ,character){
 }
 
 matrix = matrixGenerator(a);
-fillC(200,1);
-fillC(10,2);
-//fillC(Math.floor(Math.random()* a),5);
-//fillC(Math.floor(Math.random()* a),4);
-//fillC(Math.floor(Math.random()* a),3);
-//fillC(Math.floor(Math.random()* a),2);
-//fillC(Math.floor(Math.random()* a),1);
+//fillC(200,1);
+//fillC(10,5);
+fillC(Math.floor(Math.random()* a),5);
+fillC(Math.floor(Math.random()* a),4);
+fillC(Math.floor(Math.random()* a),3);
+fillC(Math.floor(Math.random()* a + 20),2);
+fillC(Math.floor(Math.random()* a + 50),1);
 
 
 function createObj(){
@@ -160,9 +160,9 @@ function start(){
 }
 
 //fps = 500;
-t = 500; //timer
+//t = 500; //timer
 createObj();
-intervalID = setInterval(start, t);
+intervalID = setInterval(start, 300);
 setInterval(sendInfo, 2000);
 
 function sendInfo(){
@@ -173,28 +173,23 @@ function sendInfo(){
 function serverGameStop(serverGameStop){
     if(serverGameStop){;
         clearInterval(intervalID);
-        clearTimeout(intervalID);
+        //clearTimeout(intervalID);
         //intervalID._repeat = 0;
         //intervalID._idleTimeout = 0;
         //intervalID._destroyed = true;
         intervalID = null;
     } else {
         clearInterval(intervalID);
-        intervalID = setInterval(start, t);
+        intervalID = setInterval(start, 200);
     }
 }
 
 function changeWeather(nowWeather){
     if(nowWeather == "winter"){
-        // while (grassEaterArr.length > 0) {
-        //     grassEaterArr.die();
-        // }
-        
-        intervalID._repeat = 2000;
-        //intervalID._idleTimeout = 2000;
-        
-        //intervalID = setInterval(start, t * 2000);
-        console.log(intervalID);
+        clearInterval(intervalID);
+        intervalID = null;
+        intervalID = setInterval(start, 1000);
+        //console.log(intervalID);
         for (var i in grassEaterArr) {
             grassEaterArr[i].energy -= 7;
         }
@@ -207,22 +202,58 @@ function changeWeather(nowWeather){
     }
     if(nowWeather == "spring"){
         clearInterval(intervalID);
-        intervalID = setInterval(start, t / 5);
+        intervalID = null;
+        intervalID = setInterval(start, 250);
         //intervalID._repeat = 1;
         //intervalID._idleTimeout = 1;
-        console.log(intervalID);
+        //console.log(intervalID);
     }
-    // else {
-    //     for (var i in grassEaterArr) {
-    //         grassEaterArr[i].energy += 15;
-    //     }
-    //     for (var i in predatorArr) {
-    //         predatorArr[i].energy += 10;
-    //     }
-    //     for (var i in hunterArr) {
-    //         hunterArr[i].energy += 10;
-    //     } 
-    // }
+    if(nowWeather == "summer"){
+        clearInterval(intervalID);
+        intervalID = null;
+        intervalID = setInterval(start, 100);
+    }
+    if(nowWeather == "autumn"){
+        clearInterval(intervalID);
+        intervalID = null;
+        intervalID = setInterval(start, 550);
+    }
+}
+function killGrassEater(){
+    for (var i in grassEaterArr) {
+        grassEaterArr[i].energy = 0;
+        //grassEaterArr[i].die();
+    }
+}
+function killPredator(){
+    for (var i in predatorArr) {
+        predatorArr[i].energy = 0;
+    }
+}
+function killHunter(){
+    for (var i in hunterArr) {
+        hunterArr[i].energy = 0;
+    } 
+}
+function killDieObj(){
+    for (var i in dieArr) {
+        dieArr[i].die();
+    }
+}
+
+function killAll(){
+    for (var i in grassEaterArr) {
+        //grassEaterArr[i].energy = 0;
+    }
+    for (var i in predatorArr) {
+        predatorArr[i].energy = 0;
+    }
+    for (var i in hunterArr) {
+        hunterArr[i].energy = 0;
+    } 
+    for (var i in dieArr) {
+        dieArr[i].die();
+    }
 }
 
 io.on('connection', function (socket) {
@@ -238,6 +269,26 @@ io.on('connection', function (socket) {
 
     socket.on("GameStop", function (GameStop) {
         serverGameStop(GameStop);
+    });
+
+    socket.on("killGrassEater", function (killGrEater) {
+        killGrassEater();
+    });
+
+    socket.on("killPredator", function (killPr) {
+        killPredator();
+    });
+
+    socket.on("killHunter", function (killHu) {
+        killHunter();
+    });
+
+    socket.on("killDieObj", function (killDie) {
+        killDieObj();
+    });
+
+    socket.on("killAll", function (killAllObj) {
+        killAll();
     });
 
 });

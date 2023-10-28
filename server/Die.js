@@ -3,6 +3,7 @@ LivingCreature  = require('./livingCreature.js')
 module.exports = class Die extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
+        
     }
 
     getNewCoordinates() {
@@ -22,15 +23,20 @@ module.exports = class Die extends LivingCreature {
         this.getNewCoordinates();
         return super.chooseCell(character);
     }
+    die() {
+        for (var i in dieArr) {
+            matrix[this.y][this.x] = 0;
+            break; 
+        }
+    }
     mul() {
         this.multiply++;
-        this.energy++;
-        var newCell = random(this.chooseCell(0));
-        if (this.multiply >= 8 && newCell) {
-            var newHunter = new Hunter(newCell[0], newCell[1], this.index);
-            hunterArr.push(newHunter);
+        //var newCell = random(this.chooseCell(0));
+        /*if (this.multiply >= 8 && newCell) {
+            var dieArr = new Die(newCell[0], newCell[1], this.index);
+            dieArr.push(dieArr);
             matrix[newCell[1]][newCell[0]] = 4;
             this.multiply = 0;
-        }
+        }*/
     }
 }
