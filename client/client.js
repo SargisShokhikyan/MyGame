@@ -32,6 +32,28 @@ function StartGame(){
     socket.emit("GameStop", GameStop);
 }
 
+function killGrassEater(){
+    killGrEater = undefined;
+    socket.emit("killGrassEater", killGrEater);
+}
+function killPredator(){
+    killPr = undefined;
+    socket.emit("killPredator", killPr);
+}
+function killHunter(){
+    killHu = undefined;
+    socket.emit("killHunter", killHu);
+}
+function killDieObj(){
+    killDie = undefined;
+    socket.emit("killDieObj", killDie);
+}
+function killAll(){
+    killAllObj = undefined;
+    socket.emit("killAll", killAllObj);
+}
+
+
 function myDraw(matrix) {
     //console.log(matrix)
     for (var y = 0; y < matrix.length; y++) {

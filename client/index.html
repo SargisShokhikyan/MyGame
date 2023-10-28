@@ -83,7 +83,7 @@
 			float:right;
 		}
     	body{
-    		font-family:optima
+    		font-family:optima;
     	}
 		#first{
 			background-color:#232323;
@@ -92,6 +92,35 @@
 		.alice{
 			border-color:aliceblue;
 			height:40px;
+		}
+
+		.yellow {
+			margin-left: 5px;
+			margin-top: 5px;
+			height: 15px;
+			width: 15px;
+			background-color: yellow;
+		}
+		.red {
+			margin-left: 5px;
+			margin-top: 5px;
+			height: 15px;
+			width: 15px;
+			background-color: red;
+		}
+		.blue {
+			margin-left: 5px;
+			margin-top: 5px;
+			height: 15px;
+			width: 15px;
+			background-color: blue;
+		}
+		.black {
+			margin-left: 5px;
+			margin-top: 5px;
+			height: 15px;
+			width: 15px;
+			background-color: black;
 		}
     </style>
 </head>
@@ -273,8 +302,15 @@
 		<p id="predator" style="font-size: 20px;color: gray"></p>
 		<p id="hunter" style="font-size: 20px;color: gray"></p>
 		<p id="die" style="font-size: 20px;color: gray"></p>
-		<button id="stop" onclick="StopGame()" style="margin: 0;">Stop game</a></button>
-		<button id="start" onclick="StartGame()" style="margin: 0;">Start game</a></button>
+		<button id="stop" class="but" onclick="StopGame()" style="margin: 0;">Stop game</a></button>
+		<button id="start" class="but" onclick="StartGame()" style="margin: 0;">Start game</a></button>
+		<br>
+		<button id="killGrassEater" class="but" onclick="killGrassEater()" style="margin-top: 10;margin-left: 0px;">Kill Grass Eater<div class="yellow"></div></a></button>
+		<button id="" class="but" onclick="killPredator()" style="margin-top: 10;margin-left: 0px;">Kill Pradetor<div class="red"></div></a></button>
+		<button id="" class="but" onclick="killHunter()" style="margin-top: 10;margin-left: 0px;">Kill Hunter<div class="blue"></div></a></button>
+		<button id="" class="but" onclick="killDieObj()" style="margin-top: 10;margin-left: 0px;">Kill Die Object<div class="black"></div></a></button>
+		<br>
+		<button id="" class="but" onclick="killAll()" style="margin-top: 10;margin-left: 0px;">Kill All Object</a></button>
 	</div>
 
 </body>
