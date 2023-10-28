@@ -71,11 +71,11 @@ dieArr = [];
 
 side = 30;
 
-
+//let k = Math.floor(Math.random()* a)
 function fillC(count ,character){
     let p = 0;
     while (p < count) {
-        //let k = Math.floor(Math.random()* a)
+        
         //let l = Math.floor(Math.random()* a)
         let k = Math.floor(random(a))
         let l = Math.floor(random(a))
